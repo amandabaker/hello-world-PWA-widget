@@ -1,0 +1,25 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  height: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

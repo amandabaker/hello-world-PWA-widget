@@ -1,0 +1,34 @@
+{
+  "name": "Widgets Sample App",
+  "display": "standalone",
+  "start_url": ".",
+  "icons": [
+    {
+      "src": "144x144.png",
+      "sizes": "144x144",
+      "purpose": "any"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "Hello World",
+      "tag": "helloWorld",
+      "ms_ac_template": "ac.json",
+      "data": "data.json",
+      "description": "A simple widget example.",
+      "screenshots": [
+        {
+          "src": "screenshot.png",
+          "sizes": "600x400",
+          "label": "Test screenshot"
+        }
+      ],
+      "icons": [
+        {
+          "src": "48x48.png",
+          "sizes": "48x48"
+        }
+      ]
+    }
+  ]
+}

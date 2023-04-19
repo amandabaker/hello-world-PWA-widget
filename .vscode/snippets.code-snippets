@@ -1,0 +1,196 @@
+{
+  // Place your hello-widget-temp workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  "Print to console": {
+    "scope": "javascript,typescript",
+    "prefix": "log",
+    "body": [
+      "console.log('$1');",
+      "$2"
+    ],
+    "description": "Log output to console"
+  },
+  "Basic Hello World Manifest": {
+    "scope": "json",
+    "prefix": "manifestPWA",
+    "body": [
+      "{",
+      "  \"name\": \"Widgets Sample App\",",
+      "  \"display\": \"standalone\",",
+      "  \"start_url\": \".\",",
+      "  // Don't forget to copy image resources",
+      "  \"icons\": [",
+      "    {",
+      "      \"src\": \"144x144.png\",",
+      "      \"sizes\": \"144x144\",",
+      "      \"purpose\": \"any\"",
+      "    }",
+      "  ]",
+      "}"
+    ],
+    "description": "Minimum fields for PWA installability"
+  },
+  "Link Manifest": {
+    "scope": "html",
+    "prefix": "linkManifest",
+    "body": [
+      "<link rel=\"manifest\" href=\"./manifest.json\">"
+    ],
+    "description": "Log output to console"
+  },
+  "Service Worker Offline Support": {
+    "scope": "javascript,typescript",
+    "prefix": "offlineSW",
+    "body": [
+      "// When SW is installed, cache urls for later use.",
+      "self.addEventListener('install', (event) => {",
+      "",
+      "  self.skipWaiting();",
+      "",
+      "  // Cache content for offline use.",
+      "  const urlsToCache = ['/', 'app.js'];",
+      "   event.waitUntil(async () => {",
+      "      const cache = await caches.open('pwa-assets');",
+      "      return cache.addAll(urlsToCache);",
+      "   });",
+      "});",
+      "",
+      "// Once SW is activated, claim clients to set the new instance as the controller.",
+      "self.addEventListener('activate', (event) => {",
+      "  event.waitUntil(clients.claim());",
+      "});",
+      "",
+      "// If fetch fails, serve content from cache.",
+      "self.addEventListener('fetch', (event) => {",
+      "  event.respondWith(",
+      "    fetch(event.request)",
+      "    .catch(error => {",
+      "      return caches.match(event.request) ;",
+      "    })",
+      "  );",
+      "});"
+    ]
+  },
+  "Register Service Worker": {
+    "scope": "javascript,typescript",
+    "prefix": "registerSW",
+    "body": [
+      "if (navigator.serviceWorker) {",
+      "  navigator.serviceWorker.register('./sw.js');",
+      "}"
+    ],
+    "description": "Log output to console"
+  },
+
+
+
+  "Hello World Widget": {
+    "scope": "json",
+    "prefix": "manifestWidget",
+    "body": [
+      "  \"widgets\": [",
+      "    {",
+      "      \"name\": \"Hello World\",",
+      "      \"tag\": \"helloWorld\",",
+      // "      \"template\": \"none\",",
+      // "      \"type\": \"application/json\",",
+      "      \"ms_ac_template\": \"ac.json\",",
+      "      \"data\": \"data.json\",",
+      // "      \"short_name\": \"Hello World\",",
+      "      \"description\": \"A simple widget example.\",",
+      "      // Don't forget to copy image resources",
+      "      \"screenshots\": [",
+      "        {",
+      "          \"src\": \"screenshot.png\",",
+      "          \"sizes\": \"600x400\",",
+      "          \"label\": \"Test screenshot\"",
+      "        }",
+      "      ],",
+      "      \"icons\": [",
+      "        {",
+      "          \"src\": \"48x48.png\",",
+      "          \"sizes\": \"48x48\"",
+      "        }",
+      "      ]",
+      // "      \"multiple\": true",
+      "    }",
+      "  ]"
+    ],
+    "description": "A minimal Hello World widget"
+  },
+  "Widget Event Listeners": {
+    "scope": "javascript",
+    "prefix": "addEventListeners",
+    "body": [
+      "// When widget is installed/pinned, push initial state.",
+      "self.addEventListener('widgetinstall', (event) => {});",
+      "",
+      "// When widget is shown, update content to ensure it is up-to-date.",
+      "self.addEventListener('widgetresume', (event) => {});",
+      "",
+      "// When the user clicks an element with an associated Action.Execute,",
+      "// handle according to the 'verb' in event.action.",
+      "self.addEventListener('widgetclick', (event) => {});",
+      "",
+      "// When the widget is uninstalled/unpinned, clean up any unnecessary",
+      "// periodic sync or widget-related state.",
+      "self.addEventListener('widgetuninstall', (event) => {});"
+    ],
+    "description": "Log output to console"
+  },
+  "Event Wait Until": {
+    "scope": "javascript,typescript",
+    "prefix": "eventwaitUntil",
+    "body": [
+      "event.waitUntil($1);"
+    ]
+  },
+  "updateWidget()": {
+    "scope": "javascript",
+    "prefix": "updateWidget",
+    "body": [
+      "const updateWidget = async (event) => {",
+      "  // The widget definition represents the fields specified in the manifest.",
+      "  const widgetDefinition = event.widget.definition;",
+      "",
+      "  // Fetch the template and data defined in the manifest to generate the payload.",
+      "  const payload = {",
+      "    template: JSON.stringify(await (await fetch(widgetDefinition.msAcTemplate)).json()),",
+      "    data: JSON.stringify(await (await fetch(widgetDefinition.data)).json()),",
+      "  };",
+      "",
+      "  // Push payload to widget.",
+      "  await self.widgets.updateByInstanceId(event.instanceId, payload);",
+      "}"
+    ],
+    "description": "Log output to console"
+  },
+  "updateName()": {
+    "scope": "javascript",
+    "prefix": "updateName",
+    "body": [
+      "const updateName = async (event) => {",
+      "  // Get the name that was inserted into the input box.",
+      "  const name = event.data.json().name;",
+      ""
+      "  // The widget definition represents the fields specified in the manifest.",
+      "  const widgetDefinition = event.widget.definition;",
+      "",
+      "  // Fetch the template and data defined in the manifest to generate the payload.",
+      "  const payload = {",
+      "    template: JSON.stringify(await (await fetch(widgetDefinition.msAcTemplate)).json()),",
+      "    data: JSON.stringify({name}),",
+      "  };",
+      "",
+      "  // Push payload to widget.",
+      "  await self.widgets.updateByInstanceId(event.instanceId, payload);",
+      "}"
+    ],
+    "description": "Log output to console"
+  }
+}
